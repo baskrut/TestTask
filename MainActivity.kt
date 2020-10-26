@@ -3,6 +3,7 @@ package com.andrewbas.interviewapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -34,14 +35,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }else if (index != 0){
 
 
-
                 idealSum +=100F / index.toFloat()
                 currentSum += createdList[index].toFloat()/index.toFloat()
             }
         }
 
 
-       val answer =  10F/(idealSum-currentSum)
+       val answer =  (10/(idealSum-currentSum))
 
             tvAnswer.text = answer.toString()
     }
@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun createList(size: Int, number: Int): MutableList<Int>{
 
         var iterator = 0
+
+        createdList.removeAll(createdList)
 
         while (size >= iterator){
 
@@ -63,19 +65,35 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if (v?.id == btn.id){
 
-            val number = etNumber.text.toString().toInt()
-            val size = etSize.text.toString().toInt()
+            var number = 0
+            var size = 0
 
-            
-            if (number >= 0 && size >= 0){
+            if (etNumber.text.isNotEmpty()){
+                number = etNumber.text.toString().toInt()
+            }
+
+            if (etSize.text.isNotEmpty()) {
+               size = etSize.text.toString().toInt()
+            }
+
+            if(number == 0 || size ==0){
+
+                val toast = Toast.makeText(this, "номер мешочка или количество мешочков не должно равняться нулю", Toast.LENGTH_LONG)
+                    .show()
+
+            }else if (number > 0 && size > 0){
+
                 if (size >= number){
+
                     createList(size, number)
 
                     searchForPouch(createdList)
+
+                }else{
+                    val toast = Toast.makeText(this, "номер мешочка должен быть больше количества мешочков", Toast.LENGTH_LONG)
+                        .show()
                 }
-
             }
-
         }
     }
 }
