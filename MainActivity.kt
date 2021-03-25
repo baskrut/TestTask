@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     searchForPouch(createdList)
 
                 }else{
-                    val toast = Toast.makeText(this, "номер мешочка должен быть больше количества мешочков", Toast.LENGTH_LONG)
+                    val toast = Toast.makeText(this, "номер мешочка должен быть меньше количества мешочков", Toast.LENGTH_LONG)
                         .show()
                 }
             }
